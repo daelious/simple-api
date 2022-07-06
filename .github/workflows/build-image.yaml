@@ -20,15 +20,15 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build . --file Dockerfile -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/simple-api:${{ github.sha }}
-        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/simple-api:${{ github.sha }}
+        docker build . --file Dockerfile --tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/simple-api:${{ github.sha_short }}
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/simple-api:${{ github.sha_short }}
 
     - name: 'Deploy to Azure Container Instances'
       uses: 'azure/aci-deploy@v1'
       with:
         resource-group: ${{ secrets.RESOURCE_GROUP }}
         dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}
-        image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/simple-api:${{ github.sha }}
+        image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/simple-api:${{ github.sha_short }}
         registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
         registry-username: ${{ secrets.REGISTRY_USERNAME }}
         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
