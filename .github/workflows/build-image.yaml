@@ -22,7 +22,7 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - name: 'Run Docker Build'
       run: |
-        docker build ./Dockerfile --tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/simple-api:${{ github.sha }}
+        docker build ./simple-api/Dockerfile --tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/simple-api:${{ github.sha }}
         docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/simple-api:${{ github.sha }}
 
     - name: 'Deploy to Azure Container Instances'
