@@ -29,7 +29,7 @@ jobs:
         docker build . --file Dockerfile --tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/simple-api:latest
         docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/simple-api:latest
 
-    - name: 'Deploy to Azure Container Instances'
+    - name: 'Deploy to Azure Container Instances (versioned)'
       uses: 'azure/aci-deploy@v1'
       with:
         resource-group: ${{ secrets.RESOURCE_GROUP }}
@@ -38,10 +38,10 @@ jobs:
         registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
         registry-username: ${{ secrets.REGISTRY_USERNAME }}
         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-        name: aci-simple-api
+        name: simple-api
         location: 'east us 2'
 
-    - name: 'Deploy to Azure Container Instances'
+    - name: 'Deploy to Azure Container Instances (latest)'
       uses: 'azure/aci-deploy@v1'
       with:
         resource-group: ${{ secrets.RESOURCE_GROUP }}
@@ -50,5 +50,5 @@ jobs:
         registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
         registry-username: ${{ secrets.REGISTRY_USERNAME }}
         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-        name: aci-simple-api
+        name: simple-api
         location: 'east us 2'
